@@ -1,262 +1,68 @@
 Download and use github in Visual Studio Code
 
 Setting up Github in Visual Studio Code
-   1. Download git from https://git-scm.com/download/win
-   2. Click Install git
-   3. Select Components Window
-      # (Optional) Uncheck Windows Explorer Integration
-      # Click Next
-   4. Pick editor for Git File Window
-      # (Optional) Visual Studio Code as Git editor or use Notepad++ if installed
-   5. Git Formatting Window
-      # Checkout as-in, commit Unix-style line endings
-      # Use Windows' default console window
-      # Enable file system cachine
-      # Enable Git Credential Manager
-      Note: This should add the git binary to system environment path. 
-      If it doesn't follow then follow the next instructions.
-      # Add Git to environment path
-      # Finish installing Git
-   6. Download Visual Studio Code for system from https://code.visualstudio.com/download
-
-Ref: https://blogs.msdn.microsoft.com/nicktrog/2016/02/11/configuring-visual-studio-code-for-php-development/
-
-Setting Git as an Environment Variable
-   1. Search Environment Variables
-      # Advanced Tab
-      # Environment Variables
-      # System Variables > Edit Path
-      # New with Path being C:\Program Files\Git\bin or where ever the Git\bin folder is
-      # Click Okay
-
+    1. Open up the terminal 
+	   Terminal: sudo install apt-get
+	2. Download Visual Studio Code from the Ubuntu store
+	   
 Syncing Visual Studio Code with Github.com account
+- 
    1. Download GitHub extension
    2. Download GitHub Pull Requests and Issues extension
    3. Open terminal (Shortcut Ctrl + `)
       Terminal: git config --global user.name {{ USERNAME }}
       Terminal: git config --global user.email {{ EMAIL }}
-   4. Click Github Pull Request extension on the side window
-   5. Click Sign In and a window will pop up asking you to sign into Github 
-   and to add an OAuth token.
-   * You may have to do a pull or push to a repository for the user dialog 
-   window shows up asking you to sign into github.com
-
-Disable Diagnostics Crash Reporting
-   1. File > Preferences > Settings
-   2. Search Telemetry
-   3. Uncheck both boxes
-   4. Restart VSCode
-
-Enable Bash Terminal
-   1. Open search bar with Ctrl + Shift + p
-   2. In the search bar type > Shell
-   3. Select "Terminal Select Default Shell"
-   4. Select "Git Bash"
-
-Create .bashrc
-   1. Open terminal (Shortcut Ctrl + `)
-   2. Navigate to the user home directory
-   3. Type "copy > ~/.bashrc"
-      # The terminal will say "Command not found" but the .bashrc file will be created
-
-Common .bashrc Alias
-   - Aliases vue command and enable Vue Create
-      1. Open .bashrc
-      2. Type into the .bashrc file
-         # alias vue='winpty vue.cmd'
-      3. Save .bashrc file
-      4. Restart the terminal
-
-Start a terminal at a specific directory
-   1. Open .bashrc
-   2. Type into the .bashrc file
-      # cd ~/path/to/directory
-   3. Save .bashrc file
-   4. Restart the terminal
-
-Ignore directory changes in VSCode
-   * Useful if a directory is changed a lot, such as, node_modules
-   1. In the root of your project, same as the .git directory, create a text file called .gitignore
-   2. The file itself should contain directories or files you wish to ignore in any sub-directories. If you need to fine-tune the 
-      ignore, follow the PATTERN FORMAT at https://git-scm.com/docs/gitignore
-      Example: node_modules/ 
-   * The files and directories will still be tracked in the Explorer window if they were created before the .gitignore file was 
-     created.
-   4. Go to the file in VSCode Explorer and you should see the .gitignore.txt. Remove the .txt extension. .gitignore is a special
-      extension that github uses.
-   5. Close VSCode and launch it again to make sure the .gitignore configurations are loaded 
-   6. Find a directory with a lot of packages and run npm install to test that the .gitignore file works
-
-Initial commit from local repository to remote (without a pre-existing remote repository)
-Note: This uses github's create repository API and allows a repository to be 
-      initialized from the commend-line. You will need a http command-line tool like cURL
-      or wget
-Note: If your Windows 10 build is 17063 then curl is installed by default
-   * Use of the API without username and password are slowly being deprecated and will be entirely
-      unusable by Sept 2020, please use the next instruction set
-   1. Open terminal (Shortcut Ctrl + `)
-   *  This uses the cURL http command-line tool
-      Terminal: curl -u '{{ USERNAME }}:{{ PASSWORD }}' https://api.github.com/user/repos -d '{"name":"{{ repository Name }}","description":"{{ repository description }}"}'
-   *  To add additional parameters to your repo initialization add them to the JSON at the end. The only key-value that is required is:
-      "name":"Repository Name". Avoid spaces in the repository.
-   *  Read the ref at the end to learn about how to use the API tool. Warning: The 
-      instruction on how to use the API can change at any time without warning so be
-      aware that something that works one day might no longer work another day
-   2. Create folder on your system to act as the new local repository on your system
-   3. Move into the directory where your local repository will live
-      Termianl: cd /Path/To/Repository
-   4. Link the local repository to the remote, do an initial commit
-      Terminal: git init
-      Terminal: git add .
-      Terminal: git commit -m "Initial commit"
-      Terminal: git remote add origin https://github.com/USERNAME/PATH_TO_NEW_REPOSITORY.git
-      Terminal: git push -u origin master
-
-Initial commit from local repository to remote (without a pre-existing remote repository) using Authorization Code
-Note: This uses github's create repository API and allows a repository to be 
-      initialized from the commend-line. You will need a http command-line tool like cURL
-      or wget
-Note: If your Windows 10 build is 17063 then curl is installed by default
-   1. Log on to your account in github.com
-   2. Go to Developer Settings in your account
-   3. Click Personal Access Tokens
-   4. Click Generate New Token
-   5. In the note put something like token for Github API access
-   6. Give it the (parent) `repo` and `delete_repo` permission
-   *  (Optional) Give the token all permissions
-   7. Click Generate Token
-   8. You will be redirected to your personal access tokens page with your new token on top
-   9. Go to VSCode
-  10. Open terminal (Shortcut Ctrl + `)
-   *  This uses the cURL http command-line tool
-      Terminal: curl -u '{{ USERNAME }}:{{ Token }}' https://api.github.com/user/repos -d '{"name":"{{ repository Name }}","description":"{{ repository description }}"}'
-   *  To add additional parameters to your repo initialization add them to the JSON at the end. The only key-value that is required is:
-      "name":"Repository Name". Avoid spaces in the repository.
-   *  Read the ref at the end to learn about how to use the API tool. Warning: The 
-      instruction on how to use the API can change at any time without warning so be
-      aware that something that works one day might no longer work another day
-
-Ref: https://developer.github.com/v3/repos/#create
-
-Initial push from local repository to remote on github (with existing remote repository)
-   1. Create repository on github
-   2. Create folder on your system to act as the new local repository on your system
-   3. Move into the directory where your local repository will live
-      Terminal: cd /Path/To/Repository
-   4. Link the local repository to the remote, do an initial commit
-      Terminal: git init
-      Terminal: git add .
-   *  When doing a commit it is super important that a file exists within what is being being committed because git will ignore directories/sub-directories if the do not 
-      contain any content. This would be a good time to add a .gitignore because all rules are passed down from the top directory to all sub-directories unless a sub-directory
-      has its own .gitignore.	  
-      Terminal: git commit -m "Initial commit"
-      Terminal: git remote add origin https://github.com/USERNAME/PATH_TO_NEW_REPOSITORY.git
-      Terminal: git branch -M main
-      Note: Use the command below for additional pushes
-      Terminal: git push -u origin main
+   4. On the bottom left you should see account image with a number on it. Click it and it
+      and select the option Sign in to user Github Pull Requests and Issues (1).
+      Sign in to authorize the account.
+   -  There are two options here: Temporarily switch ubuntu's default browser to chrome
+   -  Ckise the page and keep repeating step 4. This took me around 5-10 times
+   5. Click authorize and you'll eventually get a success message. A modal should pop up on 
+      the browser asking if it is allowed to open vscode links. Click always. Navigate back
+	  to Visual Studio Code and you will get the same prompt sort of message asking if 
+	  visual studio code is allowed to always open up vs links. Click always allow.
 	  
-Pushes from local repository to remote
-Note: Complete the instruction for one of the "Initial commit from local repository to remote"
-      above before doing this
-   1. Navigate to repository with a .git already in it. If it does not exists use the previous instructions
-   2. Open terminal (Shortcut Ctrl + `)
-      Terminal: git add .
-      Terminal: git commit -m "Initial commit"
-      Terminal: git branch -M main
-      Terminal: git push -u origin main
+https://github.com/tsvenson/academind_vue_inject_IDE_issue
 
-Creating new local repository from existing remote repository
-   1. Make sure you are in the directory you want the local copy of your repository to live in
-   2. Open terminal (Shortcut Ctrl + `)
-      Terminal: git init
-      Terminal: git remote add origin https://github.com/USERNAME/PATH_TO_EXISTING_REPOSITORY.git
-      Terminal: git clone https://github.com/USERNAME/PATH_TO_EXISTING_REPOSITORY.git
-      Terminal: git branch -M main
-   *  The clone command will automatically track the repository
-
-Cloning from Branch other than Master
-   1. Open terminal (Shortcut Ctrl + `)
-      Terminal: git clone --branch branch_name https://github.com/USERNAME/PATH_TO_EXISTING_REPOSITORY.git
-
-Alternative: Cloning from Branch other than Master
-   1. Open terminal (Shortcut Ctrl + `)
-      Terminal: git clone -b branch_name https://github.com/USERNAME/PATH_TO_EXISTING_REPOSITORY.git
-
-Note: Cloning from Branch other than Master
-   # When cloning a different branch of the repository it downloads the entire repository
-     then switches branches. There is nothing special about the --branch flag to the clone
-     command. Manually switch by using the Ctrl + Shift + P or from the lower left branch
-     list.
-
-Creating new local repository from existing organization repository
-   Note: The same instructions as above but the organization name replaces the USERNAME
-	  
-Loading repository in Visual Studio Code Source Control that doesn't show up
-   1. Source Control Extension
-   2. Open folder with .git in it that was already linked to a repository
-
-Switching Repositories that are loaded into Source Control
-   1. File > Close Folder
-   2. File > Open Folder (This should have a .git that is linked to a remote repository)
-
-Commit using the Source Control
-   1. Type a commit message
-   2. Open the three dot menu
-   3. Select: Stage All Chnages
-   4. Select: Commit Staged
-   5. Select: Push or Push to if you have a specific branch you need to push to
-
-Setting up Extension Recommendations Per project
-   1. Open a Workspace or Workspace folder
-   2. Open the Extensions from the left side bar
-   3. Click the three dots and select Show Recommendation Extensions
-   4. Click the pencil icon next to the Workspace Recommendations
-   5. A file called extensionss.json will open up
-   *  As an array of strings, type the extension reference id seen on the extension marketplace 
-     next to the extension into the extensions.json file
-
-Cloning Main Branch to Another Branch
-   1. Press Ctrl + Shift + P
-   2. Type and select Create Branch From
-   3. Give a new name from the branch and hit Enter
-   4. The new branch will be created and you will automatically be switched to it
-   *  To confirm you are in the correct working branch look in the lower left corner
-
-Switching Branches (Visual Studio Code)
-   1. Press Ctrl + Shift + P
-   2. Type and select Checkout to
-   3. Select the branch and hit Enter and you will be switched to it
-
-Alternative: Switching Branches (Visual Studio Code)
-   1. In the lower left corner select the branch you want to switch to
-
-Pushing to New Branch (Visual Studio Code)
-   1. In the new branch from the previous instructions, make a small change and push
-   2. If this is the first push from the new branch to git repository you will get a 
-      warning there is no upstream branch then ask if you want to create one. Click yes
-
-Delete Local Branch (Visual Studio Code)
-   1. Press Ctrl + Shift + P
-   2. Type and select Delete Branch
-   3. Select the branch and hit Enter and the branch will be deleted
-   #  You cannot delete the branch you are working on
-
-Delete Remote Branch
-   1. Open terminal (Shortcut Ctrl + `)
-      Terminal: git push https://github.com/USERNAME/PATH_TO_EXISTING_REPOSITORY.git --delete {{ branch name }}
-
-Delete Remote Branch from Github
-   1. Go to github.com and the repository
-   2. Click branch
-   3. On the right there should be a delete button for each branch except the master
-
-Change commit message length in VSCode Github Pull Request Extension
-   1. File > Preferences > Settings (Shortcut Ctrl + ,)
-   2. Type into the search bar: length
-   3. Under the Extensions drop down select Git
-   4. Change the value of Git: Input Validation Length
-   5. Change the value of Git: Input Validation Subject Length
-   6. Close settings and close Visual Studio Code   
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
 
 
-* merge & Rebase
+
+Usage
+
+To download, compile, and install the latest release of node, do this:
+
+nvm install node # "node" is an alias for the latest version
+
+To install a specific version of node:
+
+nvm install 6.14.4 # or 10.10.0, 8.9.1, etc
+
+The first version installed becomes the default. New shells will start with the default version of node (e.g., nvm alias default).
+
+You can list available versions using ls-remote:
+
+nvm ls-remote
+
+And then in any new shell just use the installed version:
+
+nvm use node
+
+Or you can just run it:
+
+nvm run node --version
+
+Or, you can run any arbitrary command in a subshell with the desired version of node:
+
+nvm exec 4.2 node --version
+
+You can also get the path to the executable to where it was installed:
+
+nvm which 5.0
+
+In place of a version pointer like "0.10" or "5.0" or "4.2.1", you can use the following special default aliases with nvm install, nvm use, nvm run, nvm exec, nvm which, etc:
+
+    node: this installs the latest version of node
+    iojs: this installs the latest version of io.js
+    stable: this alias is deprecated, and only truly applies to node v0.12 and earlier. Currently, this is an alias for node.
+    unstable: this alias points to node v0.11 - the last "unstable" node release, since post-1.0, all node versions are stable. (in SemVer, versions communicate breakage, not stability).
