@@ -1,9 +1,9 @@
 Download and use github in Visual Studio Code
 
 Setting up Github in Visual Studio Code
-    1. Open up the terminal 
+   1. Open up the terminal 
 	   Terminal: sudo install apt-get
-	2. Download Visual Studio Code from the Ubuntu store
+   2. Download Visual Studio Code from the Ubuntu store
 	   
 Syncing Visual Studio Code with Github.com account
 - 
@@ -19,18 +19,23 @@ Syncing Visual Studio Code with Github.com account
    -  Ckise the page and keep repeating step 4. This took me around 5-10 times
    5. Click authorize and you'll eventually get a success message. A modal should pop up on 
       the browser asking if it is allowed to open vscode links. Click always. Navigate back
-	  to Visual Studio Code and you will get the same prompt sort of message asking if 
-	  visual studio code is allowed to always open up vs links. Click always allow.
+	   to Visual Studio Code and you will get the same prompt sort of message asking if 
+	   visual studio code is allowed to always open up vs links. Click always allow.
 	  
-https://github.com/tsvenson/academind_vue_inject_IDE_issue
+-- The instructions down below need to be edited / formatted
 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
-
-
 
 Usage
 
 To download, compile, and install the latest release of node, do this:
+
+Go to /home/{{user}}/.nvm 
+      Terminal: ./install.sh
+      Terminal: nvm ls-remote (List all the versions of node)
+      Terminal: nvm install {{ Version }}
+   -  For some reason npm can't be found even though the node version is installed.
+      Therefore you must do the last step to install it properly
 
 nvm install node # "node" is an alias for the latest version
 
