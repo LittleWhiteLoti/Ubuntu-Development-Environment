@@ -1,0 +1,41 @@
+Installing Ubuntu on an AMD machine running Windows 10 
+  * Somewhat short and Ubuntu seems to load a lot slower on VirtualBox version 5+
+  1. Make sure Windows has Hyper-V is enabled
+  * If disabled, check that the motherboard has it enabled. For a MSI motherboard go to the start up bios SMP and enable it.
+  * Boot up the machine
+  2. In search box type Add Feature and open the suggestion
+  3. Look for the Hyper-V checkbox and check it. You will need to restart the machine
+  4. Install VirtualBox along with Guest Additions
+  5. Download Ubuntu version 20.04+
+  6. Create a virtual machine with Ubuntu x64
+  7. Open Command Prompt in Adminstrator Mode
+  *  Step 6-8 are need to enable Nested VT-x/AMD-U checkbox in step 11
+  8. Terminal: cd "Program Files\Oracle\VirtualBox"
+  9. Terminal: VBoxManage modifyvm <<VM name>> --nested-hw-virt on
+ 10. Go to [Settings], [Motherboard] and set the Memory to 4GB+. 
+  - Chipset is PIIX3
+  - Extended Features: Enable I/O APIC Checked
+  - Hardware Clock in UTC Time Checked
+ 11. Go to [Processor] and set Processors to a minimum of 2
+  - Extended Features: Enable PAE/NX Checked and Enable Nested VT-x/AMD-U Checked
+ 12. Go to [Acceleration], Paravirtualization Interface to Hyper-V
+  - Hardware Virtualization: Enable Nested Paging Checked
+ 13. Go to [Display] and set Video Memory to 128MB
+  - Graphics Controller is VMSVGA 
+  * You will probably get a warning on settings
+ 14. Run the machine and choose the downloaded ISO file step 5. Install everything and wait until it gets to the desktop. 
+     It will ask you to remove boot disc and restart. Turn off machine however way to want to
+ 15. Go to [Setting], remove iso from Controller IDE and create a new optical drive
+ 16. Boot up the machine and go to the desktop. Search Terminal and pin it to favoritew
+ 17. Terminal: sudo apt-get update
+ 18. Terminal: sudo apt-get upgrade
+ 19. Terminal: sudo apt-get install perl gcc build-essential dkms -y
+ 20. Wait for everything to install, then go to the host machine and click [Devices] and select Insert Guest Additions CD image...
+ 21. Back in the VM open a terminal
+ 22. Terminal: sudo mount /dev/cdrom /mnt
+ * You may get a warning the source is write-protected and read-only
+ 23. Terminal: cd /mnt
+ 24. Terminal: sudo ./VBoxLinuxAdditions.run
+ 25. Finish the install
+ 26. Terminal: reboot
+ 27. Go to the host machine and click [View] and select Full-screen

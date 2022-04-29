@@ -1,0 +1,65 @@
+Setting Ubuntu 20.04 LTS on Virtualboxie
+   1. Download the Ubuntu 20.04 LTS ISO from the ubuntu website
+   2. Create a virtual machine allocated with at least 4GB (4096 MB) / 50 GB storage. VHD or VMDK
+   -  6GB to play it safe
+   -  VMDK can be understood by other virtual machine programs but must be converted
+   3. Mount the ISO as the Controller: IDE
+   4. Boot up the machine and click Install Ubuntu
+   5. Choose a keyboard layout and click Continue
+   -  Mine is English (US)
+   6. Select Normal installation and in Other options select Download updates while installing Ubuntu. 
+      Install third-party software for graphics and Wi-Fi hardware and additional media formats. Click
+	  Continue
+   -  Some graphics software may not be supported on Ubuntu
+   7. On installation type select Erase disk and install Ubuntu. In Advanced Features... Select None. 
+      Click OK and click Install Now
+   -  A modal might appear if asking if it okay to write to the following partition tables. 
+      Click Continue
+   -  Logical Volume Management (LVM) is used if you take snapshots of the virtual machine or resize
+      the hard drive partitions a lot.
+   8. Select a city/region for choosing the system clock and click Continue
+   9. Use your name and give the computer a name to be used to identify it when used on a network.
+      Select a username and password. This account will automatically be made a sudo (admin) user.
+      Select Require my password to log in and click Continue. Do not click Skip
+  10. Enjoy the wait screens while the operating system is installing on the virtual machine. Once done
+      click Restart Now.
+  11. Unmount the ISO from the Controller: IDE and click enter
+  12. Skip the Live Accounts, Next on Live Patch screen, Next on Help Improve Ubuntu. Personal preference
+      but I keep location services off. Next on software options then click done.
+  13. If there are any software updates available go ahead and click Install Now
+   -  Optional but I prefer to remove all of the default icons on the task bar
+
+Setting up full screen on Virtualboxie
+   1. Start Ubuntu and wait for it to get on the desktop screen
+   2. From the Virtualboxie window click Devices > Insert Guest Additions CD image...
+   3. A prompt will show on the screen click Run. Enter password on new prompt and click Authenicate
+   -  You might be prompted that the iso contains information to automatically start, click Cancel
+   -  You might get a warning that the system is not built to run kernel modules. Shut down the machine.
+      the virtual machine's storage. Remove guest additions from the Controller: IDE. Create new empty
+	   disc drive. Jump to Installing Kernel Modules, once finished continue with these instructions.
+   5. Start up the Ubuntu virtual machine and get to the desktop.
+   6. From the Virtualboxie window click Devices > Insert Guest Additions CD image...
+   7. Repeat step 3 and it should install this time. The last message should be the kernel will not updates
+      until the machine is restarted.
+	   Terminal: sudo reboot
+   8. From the Virtualboxie window click View > Full-screen Mode
+   -  You can shut off the machine and remove the guest-additions iso once you have confirmed that full screen
+      is working
+
+Setting up sharing clipboard and drag and drop
+   -  Turn off the virtual machine if it is on
+   1. Go to the general setting and bidirectional on Shared Clipboard and drag'n drop and click OK to save settings
+   2. Start the virtual machine and make sure everything is working 
+
+Creating Share Folder
+   -
+
+Allowing the host machine to access the VM's address
+   - Instructions coming later
+
+Installing Kernel Modules
+   1. Update the apt-get repository
+      Termianl: sudo apt-get updates
+	  Terminal: sudo apt-get upgrade
+   2. Install the necessary tools to build the kernel module and ubuntu headers
+      Terminal: sudo apt-get install linux-headers-$(uname -r) build-essential
